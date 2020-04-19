@@ -17,6 +17,14 @@
               echo mysqli_query($conexion,$sql);
 
             }
+            public function eliminaModelo($idmodelo){
+              $c= new conectar();
+              $conexion= $c->conexion();
+              $sql="DELETE from modelos where id_modelo ='$idmodelo'";
+
+              return mysqli_query($conexion,$sql);
+
+            }
 
    }
 

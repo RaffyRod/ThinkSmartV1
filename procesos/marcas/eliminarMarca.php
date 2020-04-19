@@ -11,7 +11,7 @@ if(!isset($_SESSION))
         $id=$_POST['idmarca'];
 
         $obj= new marcas();
-        echo $obj->eliminaMrca($id);
+        echo $obj->eliminaMarca($id);
 
 
 

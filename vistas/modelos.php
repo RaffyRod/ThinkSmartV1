@@ -140,7 +140,27 @@ if(!isset($_SESSION))
         } 
 
         // Eliminacion 
+        function eliminaModelo(idmodelo){
+          alertify.confirm('Desea Borrar esta Modelo?', function(){ 
+            $.ajax({
+			      type:"POST",
+			      data:"idmodelo=" + idmodelo,
+			      url:"../procesos/modelos/eliminarModelo.php",
+			      success:function(r){
+              alert(r);  // Eliminar despues
+              if( r==1 ){
+                $('#tablaModelosLoad').load("modelos/tablaModelos.php");
+                alertify.success("Eliminado con Exito!!");
+              } else {
+                alertify.error("Fallo en la Operacion");
+              }
 
+			}
+		}); 
+          }, function(){ alertify.error('Cancelo Operacion')
+          });
+
+        }
         
     
        </script>       

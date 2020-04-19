@@ -17,7 +17,7 @@
               echo mysqli_query($conexion,$sql);
 
             }
-            public function eliminaMrca($idmarca){
+            public function eliminaMarca($idmarca){
               $c= new conectar();
               $conexion= $c->conexion();
               $sql="DELETE from marcas where id_marca ='$idmarca'";
