@@ -1,0 +1,7 @@
+ <label style="color: #6c6c6c"><bold>Marca</bold></label>
+                                  <select class="form-control input-sm"  id="marcaSelect" name="marcaSelect" >
+                                    <option value="A">Selecciona Marca</option>
+                                    <?php while ($ver=mysqli_fetch_row($result)) :?>
+                                      <option value="<?php echo $ver[0] ?>"> <?php  echo $ver[1]; ?></option>
+                                    <?php endwhile; ?>
+                                  </select>
