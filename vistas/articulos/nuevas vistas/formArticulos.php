@@ -16,7 +16,8 @@ if(!isset($_SESSION))
      <?php require_once "../clases/Conexion.php";
             $c= new conectar();
             $conexion=$c->conexion();
-            $sql = "SELECT id_categoria,nombreCategoria from categorias";           
+            $sql = "SELECT id_categoria,nombreCategoria from categorias";
+           // $sql = "SELECT id_marca,nombre from marcas";
             $result= mysqli_query($conexion,$sql);
 
      ?>
@@ -33,11 +34,6 @@ if(!isset($_SESSION))
                           <label style="color: #6c6c6c">Categoria</label>
                            <select class="form-control input-sm"  id="categoriaSelect" name="categoriaSelect" >
                              <option value="A">Selecciona Categoria</option>
-                             <?php 
-                                 $sql = "SELECT id_categoria,nombreCategoria from categorias";           
-                                 $result= mysqli_query($conexion,$sql);
-                             
-                             ?>
                              <?php while ($ver=mysqli_fetch_row($result)) :?>
                                <option value="<?php echo $ver[0] ?>"> <?php  echo $ver[1]; ?></option>
                              <?php endwhile; ?>
@@ -57,13 +53,6 @@ if(!isset($_SESSION))
                           <input type="file"   id="imagen" name="imagen" >
                           <p></p>
                           <span id="btnAgregaArticulo"  class="btn btn-success">Agregar</span>
-                         
-                          <!--//<span id="btnAmostrarArticulo"  
-                          class="btn btn-info" href="articulos/tablaArticulos.php" >Ver Articulos</span>
-                           <a id="btnAmostrarArticulo"  class="btn btn-info" href="articulos/tablaArticulos.php">Ver Articulos</a>
-                          
-                          
-                          -->
 
                         </form>
                   </div><!--col1-->
@@ -77,13 +66,15 @@ if(!isset($_SESSION))
 
         </div><!--articulos-->
         <!-- Button trigger modal -->
-
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+Launch demo modal
+</button>
 
 <!-- Modal -->
 
 
-            <div class="modal fade" id="abremodalUpdateArticulo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-              <div class="modal-dialog modal-sm" role="document">
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+              <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -97,15 +88,10 @@ if(!isset($_SESSION))
                       <label style="color: #6c6c6c">Categoria</label>
                        <select class="form-control input-sm"  id="categoriaSelectU" name="categoriaSelectU" >
                          <option value="A">Selecciona Categoria</option>
-                         <?php  
-                             $sql = "SELECT id_categoria,nombreCategoria from categorias";           
-                             $result= mysqli_query($conexion,$sql);                        
-                         
-                         ?>
                          <?php while ($ver=mysqli_fetch_row($result)) :?>
-                           <option value="<?php echo $ver[0] ?>"><?php  
-                            echo $ver[1]; ?></option>
+                           <option value="<?php echo $ver[0] ?>"> <?php  echo $ver[1]; ?></option>
                          <?php endwhile; ?>
+
                       </select>
                       <label style="color: #6c6c6c">Nombre</label>
                       <input type="text" class="form-control input-sm"  id="nombreU" name="nombreU">
@@ -119,12 +105,13 @@ if(!isset($_SESSION))
                       <input type="text" class="form-control input-sm"  id="precioU" name="precioU">
                       <!--<label style="color: #6c6c6c">Imagen</label>-->
                       <!--<input type="file"   id="imagen" name="imagen" > -->
-                      <p></p>                                           
+                      <p></p>
+                      <span id="btnAgregaArticulo"  class="btn btn-success">Agregar</span>
 
                     </form>
                   </div>
                   <div class="modal-footer">
-                    <button id="btnActualizaarticulo" type="button" class="btn btn-warning" data-dismiss="modal">Actualizar</button>
+                    <button id="btnActualizaarticulo" type="button" class="btn btn-danger" data-dismiss="modal">Actualizar</button>
 
                   </div>
                   </div>
@@ -138,22 +125,7 @@ if(!isset($_SESSION))
                 //  }):
 
                 function agregaDatosArticulo(idarticulo){
-                  $.ajax({
-			              type:"POST",
-			              data:"idart=" + idarticulo,
-			              url:"../procesos/articulos/obtenDatosArticulo.php",
-			              success:function(r){
-                      
-                        dato=jQuery.parseJSON(r);
-                        $('#idArticulo').val(['id_producto']);
-                        $('#categoriaSelectU').val(['id_categoria']);
-                        $('#nombreU').val(['nombre']);
-                        $('#descripcionU').val(['descripcion']);
-                        $('#cantidadU').val(['cantidad']);
-                        $('#precioU').val(['precio']);
-
-			}
-		});                  
+                  
                 }
         </script>
 

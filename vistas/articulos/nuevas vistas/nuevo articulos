@@ -1,0 +1,68 @@
+<?php
+    if(!isset($_SESSION))
+        {
+            session_start();
+          }
+
+      if (isset($_SESSION['usuario'])) {
+
+ ?>
+
+ <!DOCTYPE html>
+ <html lang="en" dir="ltr">
+   <head>
+
+     <title>Administracion de Articulos</title>
+     <?php require_once "menu.php"; ?>
+     
+   </head>
+   <body>
+      <div class="container" style="padding-top: 40px;">
+          <h1 style="color: #3683bc">Articulos</h1>
+          <br>
+            <div class="row">
+                <div class="col-sn-12">
+                                  <span class="btn btn-success" id="formArticulosBtn">Agregar Articulo</span>
+                                  <span class="btn btn-warning" id="TablaArticulosBtn">Ver Articulos</span>
+              </div>
+            </div>
+            <div class="row">
+                  <div class="col-sm-12">
+                        <div id="formArticulo"></div>
+                        <div id="tablaArticulo"></div>
+
+
+
+                  </div>
+            </div>
+
+      </div> <!--container-->
+
+   </body>
+ </html>
+    <script type="text/javascript">
+        $(document).ready(function(){
+          $('#formArticulosBtn').click(function(){
+            esconderSeccionVenta();
+              $('#formArticulo').load('articulos/formArticulos.php');
+              $('#formArticulo').show();
+          });
+          $('#TablaArticulosBtn').click(function(){
+            esconderSeccionVenta();
+              $('#tablaArticulo').load('articulos/tablaArticulos.php');
+              $('#tablaArticulo').show();
+
+          });
+        });
+            function esconderSeccionVenta() {
+                $('#formArticulo').hide();
+                $('#tablaArticulo').hide();
+         }
+
+    </script>
+ <?php
+      }else {
+          header("location:../index.php");
+}
+
+  ?>

@@ -48,6 +48,33 @@ if(!isset($_SESSION))
 
 
               }
+              public function obtenDatosArticulo($idarticulo){
+                $c= new conectar();
+                $conexion = $c->conexion();
+                $sql="SELECT id_producto,
+                id_categoria,
+                nombre, 
+                descripcion,
+                cantidad, 
+                precio
+
+                from articulos 
+                where id_producto='$idarticulo'";     
+                $result=mysqlite_query($conecion,$sql); 
+                $ver=mysqli_fecth_row($result);
+                
+                $datos=array(
+                            "id_producto" => $ver[0],
+                            "id_categoria" => $ver[1],
+                            "nombre" => $ver[2],
+                            "descripcion" => $ver[3],
+                            "cantidad" => $ver[4],
+                            "precio" => $ver[5]
+                );
+                return $datos;
+
+
+              }
         }
 
   ?>
