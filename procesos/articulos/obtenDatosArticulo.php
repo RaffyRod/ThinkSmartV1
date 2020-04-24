@@ -1,14 +1,19 @@
-<php  
+<?php
 
-            require_once "../../clases/Conexion.php";
-            require_once "../clases../Articulos.php";
+if(!isset($_SESSION))
+    {
+        session_start();
+}
+      
 
-          $obj= new articulos();
+      require_once "../../clases/Conexion.php";
+      require_once "../../clases/Articulos.php";
+
+      $obj= new articulos();
+      
+      $idart=$_POST['idart'];
+      
+      echo json_encode($obj->obtenDatosArticulo($idart));
 
 
-          $idart=$_POST['idart'];
-
-         echo json_encode($obj->obtenDatosArticulo($idart));
-
-
-?>
+  ?>

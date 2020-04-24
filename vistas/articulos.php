@@ -56,15 +56,8 @@ if(!isset($_SESSION))
                           <label style="color: #6c6c6c">Imagen</label>
                           <input type="file"   id="imagen" name="imagen" >
                           <p></p>
-                          <span id="btnAgregaArticulo"  class="btn btn-success">Agregar</span>
+                          <span id="btnAgregaArticulo"  class="btn btn-success">Agregar</span>                     
                          
-                          <!--//<span id="btnAmostrarArticulo"  
-                          class="btn btn-info" href="articulos/tablaArticulos.php" >Ver Articulos</span>
-                           <a id="btnAmostrarArticulo"  class="btn btn-info" href="articulos/tablaArticulos.php">Ver Articulos</a>
-                          
-                          
-                          -->
-
                         </form>
                   </div><!--col1-->
 
@@ -77,10 +70,7 @@ if(!isset($_SESSION))
 
         </div><!--articulos-->
         <!-- Button trigger modal -->
-
-
 <!-- Modal -->
-
 
             <div class="modal fade" id="abremodalUpdateArticulo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
               <div class="modal-dialog modal-sm" role="document">
@@ -134,8 +124,7 @@ if(!isset($_SESSION))
  </html>
 
         <script type="text/javascript">
-                //  $(document).ready(function(){
-                //  }):
+                
 
                 function agregaDatosArticulo(idarticulo){
                   $.ajax({
@@ -143,21 +132,21 @@ if(!isset($_SESSION))
 			              data:"idart=" + idarticulo,
 			              url:"../procesos/articulos/obtenDatosArticulo.php",
 			              success:function(r){
-                      
+                     
+                      alert(r);                      
                         dato=jQuery.parseJSON(r);
-                        $('#idArticulo').val(['id_producto']);
-                        $('#categoriaSelectU').val(['id_categoria']);
-                        $('#nombreU').val(['nombre']);
-                        $('#descripcionU').val(['descripcion']);
-                        $('#cantidadU').val(['cantidad']);
-                        $('#precioU').val(['precio']);
+                        $('#idArticulo').val(dato['id_producto']);
+                        $('#categoriaSelectU').val(dato['id_categoria']);
+                        $('#nombreU').val(dato['nombre']);
+                        $('#descripcionU').val(dato['descripcion']);
+                        $('#cantidadU').val(dato['cantidad']);
+                        $('#precioU').val(dato['precio']);                     
+                       
 
 			}
 		});                  
                 }
         </script>
-
-
 
   <script type="text/javascript">
       $(document).ready(function(){
@@ -197,8 +186,6 @@ if(!isset($_SESSION))
       });
 
   </script>
-
-
 
  <?php
       }else {

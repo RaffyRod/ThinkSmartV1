@@ -60,8 +60,8 @@ if(!isset($_SESSION))
 
                 from articulos 
                 where id_producto='$idarticulo'";     
-                $result=mysqlite_query($conecion,$sql); 
-                $ver=mysqli_fecth_row($result);
+                $result= mysqli_query($conexion,$sql); 
+                $ver= mysqli_fetch_row($result);
                 
                 $datos=array(
                             "id_producto" => $ver[0],
