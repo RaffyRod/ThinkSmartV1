@@ -149,31 +149,33 @@ if(!isset($_SESSION))
         </script>
 
         <!--Actualizar-->
-                <script type="text/javascript">
-                $(document).ready(function(){
-                  $('#btnActualizaarticulo').click(function(){
 
-              datos=$('#frmArticulosU').serialize();
-              $.ajax({
-                type:"POST",
-                data:datos,
-                url:"../procesos/articulos/actualizaArticulos.php",
-                success:function(r){
-                  console.log(r);
-                  if(r == 1){
-                    $('#tablaArticulosLoad').load("articulos/tablaArticulos.php");
-                      alertify.success("Actualizado con Exito!!");
-                  }else{
-                      alertify.error("Error al Actualizar!!");
-                  }
+        <script type="text/javascript">
+          $(document).ready(function(){
+
+            $('#btnActualizaarticulo').click(function(){
+
+          datos=$('#frmArticulosU').serialize();
+          $.ajax({
+            type:"POST",
+            data:datos,
+            url:"../procesos/articulos/actualizaArticulos.php",
+            success:function(r){
 
                 }
-              });
-              });
+               });
+          });
 
-                });
-                  
-                </script>
+
+
+
+          });
+
+
+
+        </script>
+        <!--fin de actualizacion-->
+                
 
   <script type="text/javascript">
       $(document).ready(function(){
