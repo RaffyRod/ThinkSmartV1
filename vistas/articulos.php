@@ -133,7 +133,7 @@ if(!isset($_SESSION))
 			              url:"../procesos/articulos/obtenDatosArticulo.php",
 			              success:function(r){
                      
-                      alert(r);                      
+                      //alert(r);                      
                         dato=jQuery.parseJSON(r);
                         $('#idArticulo').val(dato['id_producto']);
                         $('#categoriaSelectU').val(dato['id_categoria']);
@@ -147,6 +147,33 @@ if(!isset($_SESSION))
 		});                  
                 }
         </script>
+
+        <!--Actualizar-->
+                <script type="text/javascript">
+                $(document).ready(function(){
+                  $('#btnActualizaarticulo').click(function(){
+
+              datos=$('#frmArticulosU').serialize();
+              $.ajax({
+                type:"POST",
+                data:datos,
+                url:"../procesos/articulos/actualizaArticulos.php",
+                success:function(r){
+                  console.log(r);
+                  if(r == 1){
+                    $('#tablaArticulosLoad').load("articulos/tablaArticulos.php");
+                      alertify.success("Actualizado con Exito!!");
+                  }else{
+                      alertify.error("Error al Actualizar!!");
+                  }
+
+                }
+              });
+              });
+
+                });
+                  
+                </script>
 
   <script type="text/javascript">
       $(document).ready(function(){

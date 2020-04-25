@@ -72,7 +72,20 @@ if(!isset($_SESSION))
                             "precio" => $ver[5]
                 );
                 return $datos;
+              }
 
+              public function actualizaArticulo($datos){
+                $c= new conectar();
+                $conexion= $c->conexion();
+
+                $sql="UPDATE articulos set id_categoria='$datos[1]',
+                                                nombre='$datos[2]', 
+                                                descripcion='$datos[3]',
+                                                cantidad='$datos[4]', 
+                                                precio='$datos[5]' 
+                                                where id_producto='$datos[0]'";
+
+                return mysqli_query($conexion,$sql);
 
               }
         }
