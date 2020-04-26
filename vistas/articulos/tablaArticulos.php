@@ -54,7 +54,7 @@
             </span>
           </td>
           <td>
-              <span  class="btn btn-danger btn-sm">
+              <span  class="btn btn-danger btn-sm" onclick="eliminaArticulo('<?php echo $ver[6]?>')">
                  <span class="glyphicon glyphicon-remove"></span>
                </span>
           </td>

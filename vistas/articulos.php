@@ -114,7 +114,7 @@ if(!isset($_SESSION))
                     </form>
                   </div>
                   <div class="modal-footer">
-                    <button id="btnActualizaarticulo" type="button" class="btn btn-warning" data-dismiss="modal">Actualizar</button>
+                    <button id="btnActualizaArticulo" type="button" class="btn btn-warning" data-dismiss="modal">Actualizar</button>
 
                   </div>
                   </div>
@@ -140,40 +140,57 @@ if(!isset($_SESSION))
                         $('#nombreU').val(dato['nombre']);
                         $('#descripcionU').val(dato['descripcion']);
                         $('#cantidadU').val(dato['cantidad']);
-                        $('#precioU').val(dato['precio']);                     
+                        $('#precioU').val(dato['precio']);             
                        
 
-			}
-		});                  
-                }
+		                          	}
+	                        	});                  
+                       }
+                       //Eliminar Articulo
+
+                       function eliminaArticulo(idArticulo){
+                       alertify.confirm('Seguro que desea Eliminar este Articulo?', function(){
+                      $.ajax({
+                        type:"POST",
+                        data:"idarticulo=" + idArticulo,
+                        url:"../procesos/articulos/eliminarArticulo.php",
+                        success:function(r){
+                              if (r==1) {
+                                $('#tablaArticulosLoad').load("articulos/tablaArticulos.php");
+                                alertify.success("Eliminado con Exito!!");
+                              }else {
+                                  alertify.error("No se pudo Eliminar Articulo!!");
+                              }
+                        }                });
+              }, function(){ alertify.error('Se Cancelo Operacion')
+             });
+            }                
         </script>
 
         <!--Actualizar-->
 
         <script type="text/javascript">
-          $(document).ready(function(){
+		$(document).ready(function(){
+			$('#btnActualizaarticulo').click(function(){
 
-            $('#btnActualizaarticulo').click(function(){
-
-          datos=$('#frmArticulosU').serialize();
-          $.ajax({
-            type:"POST",
-            data:datos,
-            url:"../procesos/articulos/actualizaArticulos.php",
-            success:function(r){
-
-                }
-               });
-          });
-
-
-
-
-          });
-
-
-
-        </script>
+				datos=$('#frmArticulosU').serialize();
+				$.ajax({
+					type:"POST",
+					data:datos,
+					url:"../procesos/articulos/actualizaArticulos.php",
+					success:function(r){
+            console.log(r);
+						if(r=>1){
+							$('#tablaArticulosLoad').load("articulos/tablaArticulos.php");
+							alertify.success("Actualizado con exito :D");
+						}else{
+							alertify.error("Error al actualizar :(");
+						}
+					}
+				});
+			});
+		});
+	</script>
         <!--fin de actualizacion-->
                 
 
@@ -188,7 +205,11 @@ if(!isset($_SESSION))
                     alertify.alert("Debes llenar todos los campos!!");
                     return false;
                 }
-                var formData = new FormData(document.getElementById("frmArticulos"));
+                let frmArticulos = document.getElementById("frmArticulos");
+
+                console.log(frmArticulos)
+
+                var formData = new FormData(frmArticulos);
 
                   $.ajax({
                     url: "../procesos/articulos/insertaArticulos.php",
@@ -202,7 +223,7 @@ if(!isset($_SESSION))
                     success:function(r){
                     alert(r);
 
-                      if(r=>1){      ///debia ser r==1, pero r me daba mas de 1///
+                      if(r => 1){      ///debia ser r==1, pero r me daba mas de 1///
                         $('#frmArticulos')[0].reset();
                         $('#tablaArticulosLoad').load("articulos/tablaArticulos.php");
                         alertify.success("Agregado con exito :D");
