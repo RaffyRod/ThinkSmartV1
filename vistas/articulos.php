@@ -44,15 +44,15 @@ if(!isset($_SESSION))
 
                           </select>
                           <label style="color: #6c6c6c">Nombre</label>
-                          <input type="text" class="form-control input-sm"  id="nombre" name="nombre">
+                          <input type="text" class="form-control input-sm" maxlength="20" id="nombre" name="nombre">
                           <label style="color: #6c6c6c">Descripcion</label>
-                          <input type="text" class="form-control input-sm"  id="descripcion" name="descripcion">
+                          <input type="text" class="form-control input-sm" maxlength="50" id="descripcion" name="descripcion">
 
                           <label style="color: #6c6c6c">Cantidad</label>
-                          <input type="text" class="form-control input-sm"  id="cantidad" name="cantidad">
+                          <input type="number" class="form-control input-sm"  id="cantidad" name="cantidad">
 
                           <label style="color: #6c6c6c">Precio</label>
-                          <input type="text" class="form-control input-sm"  id="precio" name="precio">
+                          <input type="number" class="form-control input-sm"  id="precio" name="precio">
                           <label style="color: #6c6c6c">Imagen</label>
                           <input type="file"   id="imagen" name="imagen" >
                           <p></p>
@@ -98,15 +98,15 @@ if(!isset($_SESSION))
                          <?php endwhile; ?>
                       </select>
                       <label style="color: #6c6c6c">Nombre</label>
-                      <input type="text" class="form-control input-sm"  id="nombreU" name="nombreU">
+                      <input type="text" class="form-control input-sm" maxlength="20" id="nombreU" name="nombreU">
                       <label style="color: #6c6c6c">Descripcion</label>
-                      <input type="text" class="form-control input-sm"  id="descripcionU" name="descripcionU">
+                      <input type="text" class="form-control input-sm" maxlength="50" id="descripcionU" name="descripcionU">
 
                       <label style="color: #6c6c6c">Cantidad</label>
-                      <input type="text" class="form-control input-sm"  id="cantidadU" name="cantidadU">
+                      <input type="number" class="form-control input-sm"  id="cantidadU" name="cantidadU">
 
                       <label style="color: #6c6c6c">Precio</label>
-                      <input type="text" class="form-control input-sm"  id="precioU" name="precioU">
+                      <input type="number" class="form-control input-sm"  id="precioU" name="precioU">
                       <!--<label style="color: #6c6c6c">Imagen</label>-->
                       <!--<input type="file"   id="imagen" name="imagen" > -->
                       <p></p>                                           

@@ -92,15 +92,55 @@ if(!isset($_SESSION))
                 $c=new conectar();
                 $conexion=$c->conexion();
 
-                $sql="DELETE from articulos 
-                                    where id_producto='$idarticulo'";
+                $idimagen=self::obtenIdImg($idarticulo);
+
+                $sql="DELETE from articulos where id_producto='$idarticulo'";
+                $result=mysqli_query($conexion,$sql);
+
+               /* $sql="DELETE from articulos 
+                                    where id_producto='$idarticulo'";                                    
+                           return  mysqli_query($conexion,$sql);     */    
+                           if($result){
+                               $ruta=self::obtenRutaImagen($idimagen);
+
+                               $sql="DELETE from imagenes 
+                                            where id_imagen='$idimagen'";
+                                $result=mysqli_query($conexion,$sql);
+                                        if($result){
+                                                if(unlink($ruta)){
+                                                    return 1;
+
+                                                }
+                                        }
                                     
-                           return  mysqli_query($conexion,$sql);
-
-                
-
+                                    }                         
+                        }
+                        
+            public function obtenIdImg($idProducto){
+                $c= new conectar();
+                $conexion=$c->conexion();
+    
+                $sql="SELECT id_imagen 
+                        from articulos 
+                        where id_producto='$idProducto'";
+                $result=mysqli_query($conexion,$sql);
+    
+                return mysqli_fetch_row($result)[0];
             }
-
+    
+            public function obtenRutaImagen($idImg){
+                $c= new conectar();
+                $conexion=$c->conexion();
+    
+                $sql="SELECT ruta 
+                        from imagenes 
+                        where id_imagen='$idImg'";
+    
+                $result=mysqli_query($conexion,$sql);
+    
+                return mysqli_fetch_row($result)[0];
+            }
+    
  }
 
   ?>
