@@ -38,6 +38,8 @@
 
             <li class="active"><a href="inicio.php"><span class="glyphicon glyphicon-home"></span> Inicio</a>
             </li>
+			
+			
 
 
           </li>
@@ -50,10 +52,10 @@
               <li><a href="modelos.php">Modelos</a></li>
             </ul>
           </li>
-
-
+		  
+		  
         <?php
-        if($_SESSION['usuario']=="SYSDEV"):
+        if($_SESSION['usuario']=="SYSDEV" || $_SESSION['usuario']=="admin"):
          ?>
            <li><a href="usuarios.php"><span class="glyphicon glyphicon-user"></span> Administrar usuarios</a>
             </li>
@@ -96,7 +98,7 @@
 <script type="text/javascript">
   $(window).scroll(function() {
     if ($(document).scrollTop() > 150) {
-      $('.logo').height(200);
+      $('.logo').height(120);
 
     }
     else {

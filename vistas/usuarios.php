@@ -4,7 +4,7 @@ if(!isset($_SESSION))
         session_start();
     }
 
-      if (isset($_SESSION['usuario'])) {
+      if (isset($_SESSION['usuario']) || $_SESSION['usuario']=='admin') {
 
 
  ?>
@@ -25,15 +25,15 @@ if(!isset($_SESSION))
                   <div class="col-sm-4">
                     <form id="frmRegistro">
                       <label style="color: #6c6c6c">Nombre</label>
-                      <input type="text" class="form-control input-sm" name="nombre"  id="nombre">
+                      <input type="text" class="form-control input-sm" name="nombre" maxlength="15" id="nombre">
                       <label style="color: #6c6c6c">Apellido</label>
-                      <input type="text" class="form-control input-sm" name="apellido"apellido  id="apellido">
+                      <input type="text" class="form-control input-sm" name="apellido"apellido maxlength="15" id="apellido">
                       <label style="color: #6c6c6c">Usuario</label>
-                      <input type="text" class="form-control input-sm" name="usuario" id="usuario" >
+                      <input type="text" class="form-control input-sm" name="usuario" maxlength="12" id="usuario" >
                       <label style="color: #6c6c6c">Email</label>
                       <input type="email" class="form-control input-sm" name="email" id="email" >
                       <label style="color: #6c6c6c">Contraseña</label>
-                      <input type="password" class="form-control input-sm" name="password" id="password" >
+                      <input type="password" class="form-control input-sm" name="password" maxlength="8" id="password" >
                       <p></p>
                       <span class="btn btn-success" id="registro">Registrar <i class="far fa-save"></i></span>
 
