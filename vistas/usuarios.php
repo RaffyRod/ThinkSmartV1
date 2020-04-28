@@ -107,6 +107,32 @@ if(!isset($_SESSION))
                         }
                       });
                       }
+
+                      //Funcion eliminar usuario
+
+                      function eliminarUsuario(idusuario){
+                        alertify.confirm('Seguro que desea Eliminar a este Usuario?', function(){
+                      $.ajax({
+                        type:"POST",
+                        data:"idusuario=" + idusuario,
+                        url:"../procesos/usuarios/eliminarUsuario.php",
+                        success:function(r){
+                              if (r==1) {
+                                  $('#tablaUsuariosLoad').load("usuarios/tablaUsuarios.php");
+                                    alertify.success("El Usuario ha sido Eliminado!!");
+
+                              }else {
+                                  alertify.error("No se pudo Eliminar Este Usuario!!");
+                              }
+
+                        }
+                });
+              }, function(){ alertify.error('Se Cancelo Operacion')
+             });
+
+            }
+
+             //Funcion eliminar usuario
                    
               </script>
 
