@@ -1,27 +1,51 @@
+<?php
+      require_once "../../clases/Conexion.php";
+
+      $obj = new conectar();
+      $conexion= $obj->conexion();
+
+      $sql="SELECT  id_cliente,
+                    nombre,
+                   apellido,
+                   direccion,
+                   email,
+                   telefono,
+                   rfc,
+                   cedula
+              from clientes";
+
+              $result=mysqli_query($conexion,$sql);
+
+
+?>
+
+
 <div class="table-responsive">
   <table class="table table-hover table-condensed table-bordered" style="text-align: center;">
     <caption> <label>Clientes</label> </caption>
         <tr>
-            <td>Nombre</td>
-            <td>Apellido</td>
-            <td>Direccion</td>
-            <td>Email</td>
-            <td>Telefono</td>
-            <td>RFC</td>
-            <td>Cedula</td><!--Agregar este campo a la Table clientes-->
-            <td>Editar</td>
-            <td>Eliminar</td>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th colspan="2">Direccion</th>
+            <th>Email</th>
+            <th>Telefono</th>
+            <th>RNC</th>
+            <th>Cedula</th><!--Agregar este campo a la Table clientes-->
+            <th>Editar</th>
+            <th>Eliminar</th>
         </tr>
 
+        <?php while($ver=mysqli_fetch_row($result)):  ?>
+
         <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td >
+            <td><?php echo $ver[1]; ?></td>
+            <td><?php echo $ver[2]; ?></td>
+            <td colspan="2"><?php echo $ver[3]; ?></td>
+            <td><?php echo $ver[4]; ?></td>
+            <td><?php echo $ver[5]; ?></td>
+            <td><?php echo $ver[6]; ?></td>
+            <td><?php echo $ver[7]; ?></td>
+            <td>
               <span class="btn btn-warning btn-sm">
                 <span class="glyphicon glyphicon-pencil"></span>
               </span>
@@ -32,6 +56,8 @@
                  </span>
             </td>
         </tr>
+
+        <?php endwhile; ?>
 
   </table>
 

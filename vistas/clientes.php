@@ -32,7 +32,7 @@ if(!isset($_SESSION))
                   <input type="email" class="form-control input-sm" id="email" name="email" >
                   <label style="color: #6c6c6c">Telefono</label>
                   <input type="tel" class="form-control input-sm" id="telefono" name="telefono" >
-                  <label style="color: #6c6c6c">RFC</label>
+                  <label style="color: #6c6c6c">RNC</label>
                   <input type="number" class="form-control input-sm" id="rfc" name="rfc" >
                   <label style="color: #6c6c6c">Cedula</label>
                   <input type="number" class="form-control input-sm" id="cedula" name="cedula" >
@@ -70,14 +70,15 @@ if(!isset($_SESSION))
 
 
          datos=$('#frmClientes').serialize();
-         console.log(datos);
+        
          $.ajax({
            type:"POST",
            data:datos,
            url:"../procesos/clientes/agregaCLiente.php",
            success:function(r){
-                alert(r); //aliminar tras programar
+               
                if(r==1){
+                   $('#frmClientes')[0].reset();
                    $('#tablaClientesLoad').load("clientes/tablaClientes.php");
                  alertify.success("Cliente Agregado con Exito!!");
                } else {

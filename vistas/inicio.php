@@ -11,15 +11,22 @@
    <head>
      
      <title>Inicio</title>
-     <?php require_once "menu.php"; ?>
      
    </head>
    <body>
-              <section class="container2">
-              <div class="wave"></div>
-              </section>
-          
-
+     <?php require_once "menu.php"; ?>
+            
+        <div style="background-image: linear-gradient(135deg, #ffffff12, #ffffff61), url(../img/back.png);
+    width: 80%;
+    margin: 0 auto;
+    height: 60vh;
+    background-size: contain;
+    background-position: right;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;">
+          <h2 style="width: 50%; font-size:135px;">Bienvenido sea!</h2>
+        </div>
    </body>
  </html>
  <?php
