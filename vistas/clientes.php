@@ -33,9 +33,9 @@ if(!isset($_SESSION))
                   <label style="color: #6c6c6c">Telefono</label>
                   <input type="tel" class="form-control input-sm" id="telefono" name="telefono" >
                   <label style="color: #6c6c6c">RFC</label>
-                  <input type="text" class="form-control input-sm" id="rfc" name="rfc" >
+                  <input type="number" class="form-control input-sm" id="rfc" name="rfc" >
                   <label style="color: #6c6c6c">Cedula</label>
-                  <input type="text" class="form-control input-sm" id="cedula" name="cedula" >
+                  <input type="number" class="form-control input-sm" id="cedula" name="cedula" >
                   <p></p>
                   <span class="btn btn-success"  id="btnAgregarCliente">Agregar</span>
 
@@ -43,7 +43,7 @@ if(!isset($_SESSION))
 
                </div><!--col1-->
 
-               <div class="col-sm-7">
+               <div class="col-sm-9">
                      <div id="tablaClientesLoad"></div>
 
                </div><!--colsm8-->
@@ -66,16 +66,17 @@ if(!isset($_SESSION))
              if (vacios > 0) {
                  alertify.alert("Debes llenar todos los campos!!");
                  return false;
-
              }
 
 
          datos=$('#frmClientes').serialize();
+         console.log(datos);
          $.ajax({
            type:"POST",
            data:datos,
            url:"../procesos/clientes/agregaCLiente.php",
            success:function(r){
+                alert(r); //aliminar tras programar
                if(r==1){
                    $('#tablaClientesLoad').load("clientes/tablaClientes.php");
                  alertify.success("Cliente Agregado con Exito!!");
