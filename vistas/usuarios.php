@@ -52,7 +52,107 @@ if(!isset($_SESSION))
         </div><!--container-->
 
    </body>
+              <!--Inicio Modal-->
+                     
+
+<!-- Modal -->
+<div class="modal fade" id="actualizaUsuarioModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Actualiza Usuario</h4>
+      </div>
+      <div class="modal-body">
+
+      <form id="frmRegistroU">
+                      <input type="number" hidden="" id="idUsuario" name="idUsuario"> <!---->
+                      <label style="color: #6c6c6c">Nombre</label>
+                      <input type="text" class="form-control input-sm" name="nombreU" maxlength="15" id="nombreU">
+                      <label style="color: #6c6c6c">Apellido</label>
+                      <input type="text" class="form-control input-sm" name="apellidoU"apellido maxlength="15" id="apellidoU">
+                      <label style="color: #6c6c6c">Usuario</label>
+                      <input type="text" class="form-control input-sm" name="usuarioU" maxlength="12" id="usuarioU" >
+                      <label style="color: #6c6c6c">Email</label>
+                      <input type="email" class="form-control input-sm" name="emailU" id="emailU" >                     
+                    </form>
+        
+      </div>
+      <div class="modal-footer">
+        <button id="btnActualizaUsuario" type="button" class="btn btn-warning" data-dismiss="modal">Actualiza Usuario</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+           
+              <!--fin modal-->
  </html>
+          <!--Inicio Actualizacion--> 
+              <script type="text/javascript">
+                    function agregaDatosUsuario(idusuario){
+
+                      $.ajax({
+                        type:"POST",
+                        data:"idusuario=" + idusuario,
+                        url:"../procesos/usuarios/obtenDatosUsuario.php",
+                        success:function(r){
+                          dato=jQuery.parseJSON(r);
+
+                          $('#idUsuario').val(dato['id_usuario']);
+                          $('#nombreU').val(dato['nombre']);
+                          $('#apellidoU').val(dato['apellido']);
+                          $('#usuarioU').val(dato['usuario']);
+                          $('#emailU').val(dato['email']);
+                        }
+                      });
+                      }
+                   
+              </script>
+
+              <script  type="text/javascript">
+                  $(document).ready(function(){
+                    $('#btnActualizaUsuario').click(function(){
+                    datos=$('#frmRegistroU').serialize();
+                    $.ajax({
+                      type:"POST",
+                      data:datos,
+                      url:"../procesos/usuarios/actualizaUsuario.php",
+                      success:function(r){
+                                  
+                                  if(r==1){
+                                    $('#tablaUsuariosLoad').load("usuarios/tablaUsuarios.php");
+                                       alertify.success("Actualizado Con Exito!!");
+                                  } else{
+                                       alertify.error("Fallo al Actualizar");
+
+                                  }
+
+                              }
+                          });
+                       });
+
+
+                  });
+                
+              </script>
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          
+          <!--final Actualizacion-->
+
+
+
+
  <script type="text/javascript">
    $(document).ready(function(){
        $('#tablaUsuariosLoad').load("usuarios/tablaUsuarios.php");
@@ -62,7 +162,6 @@ if(!isset($_SESSION))
              if (vacios > 0) {
                  alertify.alert("Debes llenar todos los campos!!");
                  return false;
-
              }
 
            datos=$('#frmRegistro').serialize();
@@ -73,6 +172,7 @@ if(!isset($_SESSION))
              success:function(r){
                alert(r); /**para que arroje el error**/
                    if (r==1) {
+                     $('#frmRegistro')[0].reset();
                       $('#tablaUsuariosLoad').load("usuarios/tablaUsuarios.php");
                        alertify.success("Agregado Con Exito!!");
 

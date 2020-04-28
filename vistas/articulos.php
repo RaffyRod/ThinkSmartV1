@@ -82,7 +82,7 @@ if(!isset($_SESSION))
                   <div class="modal-body">
                     <form id="frmArticulosU"  enctype="multipart/form-data">
 
-                          <input type="text" id="" hidden="idArticulo" name="idArticulo">
+                          <input type="text" id="idArticulo" hidden=""  name="idArticulo">
 
                       <label style="color: #6c6c6c">Categoria</label>
                        <select class="form-control input-sm"  id="categoriaSelectU" name="categoriaSelectU" >
@@ -171,7 +171,7 @@ if(!isset($_SESSION))
 
         <script type="text/javascript">
 		$(document).ready(function(){
-			$('#btnActualizaarticulo').click(function(){
+			$('#btnActualizaArticulo').click(function(){
 
 				datos=$('#frmArticulosU').serialize();
 				$.ajax({
