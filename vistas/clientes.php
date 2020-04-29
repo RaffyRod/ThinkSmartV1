@@ -117,6 +117,32 @@ if(!isset($_SESSION))
                          }
                     });
                     }
+
+                     //Funcion eliminar usuario
+
+                     function eliminarCliente(idcliente){
+                        alertify.confirm('Seguro que desea Eliminar a este Cliente?', function(){
+                      $.ajax({
+                        type:"POST",
+                        data:"idcliente=" + idcliente,
+                        url:"../procesos/clientes/eliminarCliente.php",
+                        success:function(r){
+                              if (r==1) {
+                                $('#tablaClientesLoad').load("clientes/tablaClientes.php");
+                                    alertify.success("El Cliente ha sido Eliminado!!");
+
+                              }else {
+                                  alertify.error("No se pudo Eliminar Este Cliente!!");
+                              }
+
+                        }
+                });
+              }, function(){ alertify.error('Se Cancelo Operacion')
+             });
+
+            }
+
+             //Funcion eliminar usuario
                 
               </script>         
           
