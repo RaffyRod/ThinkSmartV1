@@ -35,7 +35,7 @@
             <th>Eliminar</th>
         </tr>
 
-        <?php while($ver=mysqli_fetch_row($result)):  ?>
+        <?php while($ver=mysqli_fetch_row($result)): ?>
 
         <tr>
             <td><?php echo $ver[1]; ?></td>
@@ -46,7 +46,8 @@
             <td><?php echo $ver[6]; ?></td>
             <td><?php echo $ver[7]; ?></td>
             <td>
-              <span class="btn btn-warning btn-sm">
+              <span class="btn btn-warning btn-sm" data-toggle="modal" data-target="#abremodalClientesUpdate"
+              onclick="agregaDatosCliente('<?php echo $ver[0]; ?>')">
                 <span class="glyphicon glyphicon-pencil"></span>
               </span>
             </td>
@@ -56,10 +57,6 @@
                  </span>
             </td>
         </tr>
-
         <?php endwhile; ?>
-
   </table>
-
-
 </div>
