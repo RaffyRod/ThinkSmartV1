@@ -19,7 +19,7 @@
                                   $result=mysqli_query($conexion,$sql);
                                   while($cliente=mysqli_fetch_row($result)):                            
                             ?>
-                           <option value="<?php echo $cliente[0] ?>"><?php echo $cliente[2]." ".$cliente[1] ?></option>
+                           <option value="<?php echo $cliente[0] ?>"><?php echo $cliente[1]." ".$cliente[2] ?></option>
                                   <?php endwhile; ?>
                             
                         </select>
@@ -45,10 +45,10 @@
                         <input readonly="" type="text" class="form-control input-sm" id="precioV" name="precioV">
                         <p></p>
                         <span class="btn btn-success" id="btnAgregaVenta">Agregar</span>
-                        <span class="btn btn-danger" id="btnVaciarVentas">Vaciar ventas</span>
+                        <span class="btn btn-danger" id="btnVaciarVentas">Vaciar Ventas</span>
             </form>
       </div>
-      <div class="col-sm-3">
+      <div class="col-sm-3 ">
 		<div id="imgProducto"></div>
 	</div>
       <div class="col-sm-4">
@@ -71,7 +71,7 @@
                               
 					dato=jQuery.parseJSON(r);
 
-                              $('#descripcionV').val(dato['descripcion']);
+                    $('#descripcionV').val(dato['descripcion']);
 					$('#cantidadV').val(dato['cantidad']);
 					$('#precioV').val(dato['precio']);
 

@@ -4,10 +4,10 @@
                     session_start();
                 }
 
-                //print_r($_SESSION['tablaComprasTemp']);
+                
 ?>
 
-<h4><b>Hacer Venta</b></h4>
+<h2><b>Hacer Venta</b></h2>
  <h4><strong><div id="nombreclienteVenta"></div></strong></h4>
  <table class="table table-bordered table-hover table-condensed" style="text-align: center;">
  	<caption>

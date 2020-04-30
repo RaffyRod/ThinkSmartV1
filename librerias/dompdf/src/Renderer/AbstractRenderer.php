@@ -247,9 +247,7 @@ abstract class AbstractRenderer
         //Optimization to avoid multiple times rendering the same image.
         //If check functions are existing and identical image already cached,
         //then skip creation of duplicate, because it is not needed by addImagePng
-        if ($this->_canvas instanceof CPDF &&
-            $this->_canvas->get_cpdf()->image_iscached($filedummy)
-        ) {
+        if ($this->_canvas instanceof CPDF && $this->_canvas->get_cpdf()->image_iscached($filedummy)) {
             $bg = null;
         } else {
             // Create a new image to fit over the background rectangle
@@ -289,8 +287,9 @@ abstract class AbstractRenderer
             //However on transparent image preset the composed image with the transparency color,
             //to keep the transparency when copying over the non transparent parts of the tiles.
             $ti = imagecolortransparent($src);
+            $palletsize = imagecolorstotal($src);
 
-            if ($ti >= 0) {
+            if ($ti >= 0 && $ti < $palletsize) {
                 $tc = imagecolorsforindex($src, $ti);
                 $ti = imagecolorallocate($bg, $tc['red'], $tc['green'], $tc['blue']);
                 imagefill($bg, 0, 0, $ti);
@@ -403,12 +402,14 @@ abstract class AbstractRenderer
             $this->_canvas->get_cpdf()->addImagePng($filedummy, $x, $this->_canvas->get_height() - $y - $height, $width, $height, $bg);
         } else {
             $tmp_dir = $this->_dompdf->getOptions()->getTempDir();
-            $tmp_name = tempnam($tmp_dir, "bg_dompdf_img_");
+            $tmp_name = @tempnam($tmp_dir, "bg_dompdf_img_");
             @unlink($tmp_name);
             $tmp_file = "$tmp_name.png";
 
             //debugpng
-            if ($this->_dompdf->getOptions()->getDebugPng()) print '[_background_image ' . $tmp_file . ']';
+            if ($this->_dompdf->getOptions()->getDebugPng()) {
+                print '[_background_image ' . $tmp_file . ']';
+            }
 
             imagepng($bg, $tmp_file);
             $this->_canvas->image($tmp_file, $x, $y, $width, $height);
@@ -434,7 +435,7 @@ abstract class AbstractRenderer
      */
     protected function _get_dash_pattern($style, $width)
     {
-        $pattern = array();
+        $pattern = [];
 
         switch ($style) {
             default:
@@ -448,14 +449,15 @@ abstract class AbstractRenderer
                 break;
 
             case "dotted":
-                if ($width <= 1)
-                    $pattern = array($width, $width * 2);
-                else
-                    $pattern = array($width);
+                if ($width <= 1) {
+                    $pattern = [$width, $width * 2];
+                } else {
+                    $pattern = [$width];
+                }
                 break;
 
             case "dashed":
-                $pattern = array(3 * $width);
+                $pattern = [3 * $width];
                 break;
         }
 
@@ -555,34 +557,34 @@ abstract class AbstractRenderer
         // All this polygon business is for beveled corners...
         switch ($side) {
             case "top":
-                $points = array($x, $y,
+                $points = [$x, $y,
                     $x + $length, $y,
                     $x + $length - $right, $y + $top,
-                    $x + $left, $y + $top);
+                    $x + $left, $y + $top];
                 $this->_canvas->polygon($points, $color, null, null, true);
                 break;
 
             case "bottom":
-                $points = array($x, $y,
+                $points = [$x, $y,
                     $x + $length, $y,
                     $x + $length - $right, $y - $bottom,
-                    $x + $left, $y - $bottom);
+                    $x + $left, $y - $bottom];
                 $this->_canvas->polygon($points, $color, null, null, true);
                 break;
 
             case "left":
-                $points = array($x, $y,
+                $points = [$x, $y,
                     $x, $y + $length,
                     $x + $left, $y + $length - $bottom,
-                    $x + $left, $y + $top);
+                    $x + $left, $y + $top];
                 $this->_canvas->polygon($points, $color, null, null, true);
                 break;
 
             case "right":
-                $points = array($x, $y,
+                $points = [$x, $y,
                     $x, $y + $length,
                     $x - $right, $y + $length - $bottom,
-                    $x - $right, $y + $top);
+                    $x - $right, $y + $top];
                 $this->_canvas->polygon($points, $color, null, null, true);
                 break;
 
@@ -659,7 +661,7 @@ abstract class AbstractRenderer
     {
         list($top, $right, $bottom, $left) = $widths;
 
-        $third_widths = array($top / 3, $right / 3, $bottom / 3, $left / 3);
+        $third_widths = [$top / 3, $right / 3, $bottom / 3, $left / 3];
 
         // draw the outer border
         $this->_border_solid($x, $y, $length, $color, $third_widths, $side, $corner_style, $r1, $r2);
@@ -684,14 +686,13 @@ abstract class AbstractRenderer
     {
         list($top, $right, $bottom, $left) = $widths;
 
-        $half_widths = array($top / 2, $right / 2, $bottom / 2, $left / 2);
+        $half_widths = [$top / 2, $right / 2, $bottom / 2, $left / 2];
 
         $this->_border_inset($x, $y, $length, $color, $half_widths, $side, $corner_style, $r1, $r2);
 
         $this->_apply_ratio($side, 0.5, $top, $right, $bottom, $left, $x, $y, $length, $r1, $r2);
 
         $this->_border_outset($x, $y, $length, $color, $half_widths, $side, $corner_style, $r1, $r2);
-
     }
 
     /**
@@ -709,14 +710,13 @@ abstract class AbstractRenderer
     {
         list($top, $right, $bottom, $left) = $widths;
 
-        $half_widths = array($top / 2, $right / 2, $bottom / 2, $left / 2);
+        $half_widths = [$top / 2, $right / 2, $bottom / 2, $left / 2];
 
         $this->_border_outset($x, $y, $length, $color, $half_widths, $side, $corner_style, $r1, $r2);
 
         $this->_apply_ratio($side, 0.5, $top, $right, $bottom, $left, $x, $y, $length, $r1, $r2);
 
         $this->_border_inset($x, $y, $length, $color, $half_widths, $side, $corner_style, $r1, $r2);
-
     }
 
     /**
@@ -725,8 +725,9 @@ abstract class AbstractRenderer
      */
     protected function _tint($c)
     {
-        if (!is_numeric($c))
+        if (!is_numeric($c)) {
             return $c;
+        }
 
         return min(1, $c + 0.16);
     }
@@ -737,8 +738,9 @@ abstract class AbstractRenderer
      */
     protected function _shade($c)
     {
-        if (!is_numeric($c))
+        if (!is_numeric($c)) {
             return $c;
+        }
 
         return max(0, $c - 0.33);
     }
@@ -759,13 +761,13 @@ abstract class AbstractRenderer
         switch ($side) {
             case "top":
             case "left":
-                $shade = array_map(array($this, "_shade"), $color);
+                $shade = array_map([$this, "_shade"], $color);
                 $this->_border_solid($x, $y, $length, $shade, $widths, $side, $corner_style, $r1, $r2);
                 break;
 
             case "bottom":
             case "right":
-                $tint = array_map(array($this, "_tint"), $color);
+                $tint = array_map([$this, "_tint"], $color);
                 $this->_border_solid($x, $y, $length, $tint, $widths, $side, $corner_style, $r1, $r2);
                 break;
 
@@ -790,13 +792,13 @@ abstract class AbstractRenderer
         switch ($side) {
             case "top":
             case "left":
-                $tint = array_map(array($this, "_tint"), $color);
+                $tint = array_map([$this, "_tint"], $color);
                 $this->_border_solid($x, $y, $length, $tint, $widths, $side, $corner_style, $r1, $r2);
                 break;
 
             case "bottom":
             case "right":
-                $shade = array_map(array($this, "_shade"), $color);
+                $shade = array_map([$this, "_shade"], $color);
                 $this->_border_solid($x, $y, $length, $shade, $widths, $side, $corner_style, $r1, $r2);
                 break;
 
@@ -913,7 +915,7 @@ abstract class AbstractRenderer
      * @param string $color
      * @param array $style
      */
-    protected function _debug_layout($box, $color = "red", $style = array())
+    protected function _debug_layout($box, $color = "red", $style = [])
     {
         $this->_canvas->rectangle($box[0], $box[1], $box[2], $box[3], Color::parse($color), 0.1, $style);
     }

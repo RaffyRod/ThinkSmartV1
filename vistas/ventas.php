@@ -29,9 +29,6 @@
                   <div class="col-sm-12">
                         <div id="ventaProductos"></div>
                         <div id="ventasHechas"></div>
-
-
-
                   </div>
             </div>
 
