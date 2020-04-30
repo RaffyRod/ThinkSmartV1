@@ -25,7 +25,7 @@
     background-repeat: no-repeat;
     display: flex;
     align-items: center;">
-          <h2 style="width: 50%; font-size:135px;">Bienvenido sea!</h2>
+          <h2 style="width: 50%; font-size:130px; color:#63D6ED ;">Bienvenido sea!</h2>
         </div>
    </body>
  </html>
